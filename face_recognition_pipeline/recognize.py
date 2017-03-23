@@ -35,7 +35,7 @@ while True:
 		break
 
 	# resize the frame, convert the frame to grayscale, and detect faces in the frame
-	frame = imutils.resize(frame, width=500)
+	frame = imutils.resize(frame, width=800)
 	gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 	faceRects = fd.detect(gray, scaleFactor=1.1, minNeighbors=5, minSize=(100, 100))
 
