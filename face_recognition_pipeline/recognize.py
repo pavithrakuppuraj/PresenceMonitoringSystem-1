@@ -7,6 +7,16 @@ from pyimagesearch.face_recognition import FaceRecognizer
 import argparse
 import imutils
 import cv2
+import sys
+import logging as log
+import datetime as dt
+
+from time import sleep
+
+# Face logs to file
+cascPath = sys.argv[1]
+faceCascade = cv2.CascadeClassifier(cascPath)
+log.basicConfig(filename='webcam.log',level=log.INFO)
 
 # construct the argument parse and parse command line arguments
 ap = argparse.ArgumentParser()
@@ -24,6 +34,7 @@ fr.setConfidenceThreshold(args["confidence"])
 
 # grab a reference to the webcam
 camera = cv2.VideoCapture(0)
+anterior = 0
 
 # loop over the frames of the video
 while True:
@@ -50,6 +61,10 @@ while True:
 		prediction = "{}: {:.2f}".format(prediction, confidence)
 		cv2.putText(frame, prediction, (x, y - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (0, 255, 0), 2)
 		cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
+		if anterior != len(faceRects):
+			anterior = len(faceRects)
+			log.info("facelogs: "+str(len(faceRects))+" "+prediction+" present at "+str(dt.datetime.now()))
 
 	# show the frame and record if the user presses a key
 	cv2.imshow("Frame", frame)
