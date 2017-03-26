@@ -17,6 +17,7 @@ from time import sleep
 cascPath = sys.argv[1]
 faceCascade = cv2.CascadeClassifier(cascPath)
 log.basicConfig(filename='webcam.log',level=log.INFO)
+#log file
 
 # construct the argument parse and parse command line arguments
 ap = argparse.ArgumentParser()
